@@ -9,7 +9,6 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const http = useHttp();
-
   const { isLoading, error, sendRequest: fetchTasks } = http;
 
   useEffect(() => {
