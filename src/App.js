@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import useHttp from "./hooks/use-http";
 
@@ -8,7 +8,7 @@ import NewTask from "./components/NewTask/NewTask";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = (tasksObject) => {
+  const transformTasks = useCallback((tasksObject) => {
     console.log(tasksObject);
     const loadedTasks = [];
 
@@ -17,7 +17,7 @@ function App() {
     }
 
     setTasks(loadedTasks);
-  };
+  }, []);
 
   const http = useHttp(
     {
@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
